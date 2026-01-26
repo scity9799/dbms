@@ -1,0 +1,402 @@
+day19 (dbms 1일차)
+DBMS -> 오라클 설치 -> 디비버 설치 -> SQL문 주요 특징 -> 팀 과제(JAVA)
+
+1. 데이터베이스(DataBase)
+	공군기지 : 항공작전을 수행하는 군사기지
+	방공센터 : 적의 공습을 방어하기 위해 감시, 탐지, 대응을 지휘하는 군사시설
+	1950년대 미 국방성에서 데이터(Data)와 기지(Base)를 합쳐 데이털 기지라는 의미로 사용한 데서 유래됨
+
+1) 데이터베이스(DataBase
+	여러가지 데이터를 모아둔 공간
+	데이터 물리적인 파일로 저장되어있으나 직접 열어서 조회하고 수정하는 것이 아니라 DBMS에서 SQL이라는 언어를 통해 조회, 수정, 삽입, 삭제 등을 할 수 있다
+	ex) 카카오톡 메세지, 카드 결제내역, 인스타그램에 등록한 사진, 유튜브에 업로드 한 동영상, ...
+	일상생활에서 사용하는 정보가 모두 데이터베이스에 기록된다
+	
+2) 데이터베이스 관리 시스템(DataBase Management System, DBMS)
+	DB에 존재하는 데이터를 편하고 효율적으로 관리하는 환경을 제공해주는 프로그램
+	구체적인 체계(시스템)
+	- Oracle, MySQL, MariaDB, MS-SQL, MongoDB, ...
+	DB와 DBMS차이 꼭 알고 있을 것
+
+- 데이터베이스는 데이터 일관성과 데이터 독립성, 동시접속, 데이터 공유가 중요하다
+데이터 일관성(Data Consistency)
+	여러 파일에 중복해서 저장되어있는 데이터를 하나로 모아 하나의 저장방식으로 종합해서 관리하는 것
+
+데이터의 독립성(Data Independency)
+	통합해서 저장한 데이터를 컴퓨터 운영체제와 별도의 데이터 관리시스템에 관리하자는 것
+	
+동시접속(Concurrency Control)
+	DB는 여러 사용자 또는 응용 프로그램이 동시에 데이터를 읽고 쓸 수 있는 환경을 지원해야한다
+
+데이터 공유(Data Sharing)
+	DB는 여러 사용자 또는 응용 프로그램 간에 데이터를 공유하는데 사용된다
+
+=> 사용자가 DB에 접근할 때 DB와 사용자 사이의 중간계층 역할을 하며 데이터를 관리하고 접근을 제어한다
+
+3) DBMS의 종류
+(1) 관계형 데이터 베이스 관리 시스템(Relational DBMS)
+	테이블 형식으로 데이터를 저장하며 테이블 간에 관계를 설정하는 데이터베이스 시스템
+	가장 일반적인 SQL 쿼리 언어를 사용하며 데이터를 검색, 추가, 수정, 삭제
+	ex) Oracle, MySQL(MariaDB), ms-SQL, Microsoft SQL sever. SQLite 등
+
+(2) NoSQL(Not Only SQL)
+	관계형 데이터베이스와는 다른 데이터 모델을 데이터베이스 시스템
+	비정형 데이터나 대규모 분산 데이터 처리에 적합함
+	ex) MongoDB(문서기반), Cassandra(분산형), Redis(키-값 저장소), Neo4j(그래프 데이터베이스)
+
+(3) 객체지향 데이터베이스(Object-oriented DataBase)
+	객체 지향 프로그래밍의 개념을 데이터 베이스에 적용하는 데이터베이스 시스템
+	객체를 데이터로 저장하고 관리하는 데 사용됨
+	객체 지향 언어와 통합하기 쉬운 장점
+	ex) ObjectDB, Versant 등
+
+(4) 분산 데이터베이스(Distribute DataBase)
+	여러 컴퓨터 노드에 데이터를 분산하여 저장하고 처리하는 데이터베이스 시스템
+	가용성, 확장성, 장애복구를 개선하기 위해 사용됨
+	ex) Apache Hadoop(HDFS), Google Bigtable, Amazon DynamoDB, ...
+
+2. RDBMS(Relational DataBase Management System)
+	관계형 데이터베이스 관리 시스템
+	데이터를 2차원의 데이블(표) 형태로 저장해 놓은 데이터베이스
+
+	테이블이라는 최소 단위로 구성되며 이 테이블은 하나 이상의 열(Column)과 행(Row)로 이루어져있다
+
+3. 데이터베이스 언어(DataBase Language : DL)
+	데이터베이스로부터 필요한 데이터를 질의(query)하기 위한 언어
+	
+- SQL(Structured Query Language)
+	구조화된 표준 쿼리 언어
+	명령어를 SQL문, 쿼리문, 질의문 이라고 한다
+	관계형 데이터베이스에서 데이터를 관리하기 위해 사용하는 언어
+	SQL문을 통해 데이터베이스에서 데이터를 추가, 수정, 삭제, 조회한다
+	한줄 씩 실행되는 인터프리터 언어이다
+
+- 테이블(Table)
+	행(row)과 열(column)로 이루어진 2차원 표
+
+	행(row) : 한줄의 데이터 
+		튜플(tuple) : 한 행의 데이터 묶음(관계형 DB이론)
+		레코드(recode) : 하나의 완성된 정보(실무/파일시스템)
+		인스턴스(instance) : 실제 저장된 데이터(DB이론)
+
+	 ex) 짱구, 5살, 떡잎유치원 => row = tuple = recode = instance
+
+	열(column) : 데이터의 세로줄
+		필드(field) : 하나의 항목
+		속성(attribute) : 데이터의 특징
+
+	ex) 데이터의 종류나 항목
+		이름/나이/학교 => column = field = attribute
+
+4. 오라클 설치
+1) 오라클 버전
+	9, 11, 17, 21
+
+- 접미사(i/g/c/ai)의 의미
+	i(internet) : 인터넷 시대를 강조하던 시기의 브랜딩 접미사
+		Oracle 8i : 1998년 출시
+		Oracle 9i : 2001년 출시
+	
+	g(Grid Computing) : 그리드 컴퓨팅(리소스를 묶어 대규모로 쓰는 개념)을 강조하던 시기
+		Oracle 10g(Release 1) : 2003년 출시
+		Oracle 11g(Release 1) : 2007년 출시
+
+	c(Cloud) : 클라우드/클라이드-레디를 강조
+		12c : 멀티터넌트(CDB/PDB) 같은 클라우드 친화 아키텍처를 밀기 시작
+		18c
+		19c
+		21c
+		23c -> 23ai
+
+	ai(Artificial Intelligence) : 오라클이 DB에 AI기능(벡터 검색 등)을 적용시킴
+		23c -> 23ai	2004년 5월 2일 OCI(클라우드 서비스)에서 GA발표(2031년 12월 31일로 종료)
+		Oracle AI Database 26ai : 장기지원 릴리즈 발표(2025년 10월)
+
+2) 오라클 설치
+	cmd > sqlplus 엔터
+	> C:\Users\Administrator>sqlplus
+	'sqlplus'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+	배치 파일이 아닙니다. 뜨면 설치 안된 것
+
+	오라클 삭제 > cmd 창 닫은 상태에서 확인 > 제어판 > 프로그램 제거 Oracle
+
+- 설치 진행 시
+	비밀번호는 절대 잊으면 안됨!!!
+	1234로 설정
+
+3) 오라클 기본 계정
+	sys : Oracle DBMS 관리자 계정(총 관리자)
+		테이블 삭제, 다른 사용자의 접근 권한 제어 등을 할 수 있다
+	system  : DBMS 운영을 위한 관리자 계정
+		이미 만들어진 것들을 관리하기 위한 계정으로 계정 접근 권한 제어는 불가능하다 
+	hr(휴먼 리소스) : 학습을 위한 계정(기본적인 데이터가 들어가있다)
+
+4) 권한
+	sysdba : 데이터베이스 생성 및 삭제 등 모든 권한을 의미한다(sys가 갖는 권한0
+	sysoper : 데이터베이스 운영을 위한 권한(system이 갖는 권한)
+
+5) 오라클 정상 설치 확인
+	cmd > sqlplus > Enter user-name : 정상 설치됨을 확인할 수 있다
+	
+6) HR 계정 잠금 해제 후 비밀번호 설정
+	sys 계정으로 로그인 cmd > sqlplus > sys as sysdba > 비밀번호1234
+	hr 계정 잠금 해제 : alter user hr account unlock;
+	hr 계정 비밀번호 변경 : alter user hr identified by 비밀번호(1234);
+	동시에 진행 : alter user hr account unlock indentified by 비밀번호(1234);
+
+5. 디비버(DBeaver)
+	무료 DB 접속 툴(도구)
+	java가 설치되어있어야한다(jdk11이상)
+
+- 작업공간 변경
+	file > switch workspace > other > 내 폴더의 dbms / workspace 로 설정(디비버 재시작)
+
+- 프로젝트 생성 후 진행
+	projects 탭 > create project 클릭 > 마우스 우클릭 > Set Active Project
+	데이터베이스 연결(Oracle 연결)
+
+- DBeaver 데이터베이스 연결
+	프로젝트 > Connections > 우클릭 > create 클릭 > connection > oracle > Database:XE
+	> 로그인하려는 계정 / 비밀번호 입력 > Test Connectoin 확인 후 연결 완료
+	
+	최초 1회 해야하는것(드라이버 설정)
+	Edit Driver setting > Libraries > 4 삭제 후 > Add File > ojdbc6.jar 추가 > 확인
+	ojdbc 경로 : C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar
+
+- 스크립트 파일 생성
+	프로젝트(Set Active Project 되어있는 것) 클릭 후 ctrl + ](새 스크립트 파일 생성)
+	프로젝트 폴더 내 Scripts 폴더 우클릭 > create > Creat New File 클릭
+	이름 변경 F2
+
++) 디비버 단축키
+	- 새로운 프로젝트 생성 ctrl + n
+	- 새로운 스크립트 파일 생성 ctrl + ]
+	- 쿼리문 실행 ctrl + enter
+	- 글씨 작게 ctrl + shift + -(번호키 쪽 키로)
+	- 글씨 크게 ctrl + shift + +
+	- 쿼리문 이동 alt + 위아래 방향키
+	- 주석(한줄 주석 ctrl + / 범위주석 ctrl + shift + /)
+	- 한줄 쿼리 삭제 ctrl + d
+
+6. 스크립트 파일(Script file)과 쿼리문(SQL문)
+	SQL문을 여러개 모아둔 텍스트 파일
+	보통 확장자는 .sql
+
+1) 사용하는이유	
+	한 번에 여러 sql을 저장/재사용 가능
+	같은 작업을 반복할 때 실수 줄임
+
+2) 스크립트 파일안에 들어가는 것
+	SQL문
+	주석 (--, /* */)
+
+3) SQL
+	데이터베이스를 관리할 때 사용하는 명령어(SQL문, 쿼리문, 질의문)
+
+3) SQL의 주요 특징
+	한줄씩 실행되는 인터프리터 언어
+
+- 여러줄에 걸쳐서 작성 가능하다
+	SQL은 줄바꿈이 실행에 영향을 거의 안준다
+	가독성 때문에 줄바꿈과 들여쓰기를 적극적으로 사용한다
+	
+- 쿼리의 마침표는 항상 ;
+
+- 대소문자 구분하지 않음
+	SELECT = select = SeLect 다 가능
+	관례상 => 키워드(예약어)는 대문자, 테이블/컬럼 소문자
+
+- 주석(Comment)
+	한줄 주석 --
+		-- 뒤에 있는 내용은 그 줄 끝까지 주석으로 인식(실행안됨)
+	범위 주석 /* */
+		여러줄을 묶어서 주석
+
+7./* hr 계정 내에 존재하는 employees 테이블
+ * 107개의 행과 11개의 컬럼으로 이루어져있다
+ * 107명의 직원 데이터를 저장해 놓은 연습용 테이블
+ * 
+ * 11개의 컬럼
+ * EMPLOYEE_ID	직원ID
+ * FIRST_NAME	이름
+ * LAST_NAME	성
+ * EMAIL		이메일
+ * PHONE_NUMBER	전화번호
+ * HIRE_DATE	입사일
+ * JOB_ID		직무ID
+ * SALARY		급여
+ * COMMISSION_PCT	커미션 비율
+ * MENAGER_ID	상사직원의 ID
+ * DEPARTMENT_ID	부서 ID
+ */
+
+8. SELECT문
+1) 문(Statement)과 절(Clause)
+- 문(Statement) : 하나의 완성된 SQL명령문 전체
+	보통 ;으로 끝남
+	단독으로 실행 가능
+	하나만 있어도 의미가 완성됨
+	
+	ex) select * from employees;
+
+- 절(Clause) : SQL문을 구성하는 부분
+	혼자서는 실행 불가
+	문안에 들어있어야 의미 있음
+
+	ex) SELECT first_name
+		FROM employees
+		WHERE salary > 5000
+		ORDER BY salary;
+
+2) SELECT 문
+	테이블에서 데이터를 조회할 때 사용하는 명령어
+	
+	SELECT [DISTINCT] 컬럼명 [AS 별칭, 별칭, AS "별칭 이름"]
+	FROM 테이블명
+	[ORDER BY 컬럼명 [ASC / DESC]];
+
+	- 실행 순서 : from -> select -> order by
+	- 작성 순서 : select -> from -> order by
+
+9. 자료형(Data Type)
++) 자바에서의 자료형
+	정수	byte, short, int, long
+	실수	double, float
+	논리형	boolean
+	문자형	char
+	문자열	String
+
+1) 오라클에서의 자료형
+	문자	CHAR(용량)		고정길이문자
+		VARCHAR2(용량)		가변길이문자
+	숫자	NUMBER(precision)	정수
+		NUMBER(precision, scale)실수
+	날짜	DATE			날짜와 시간, 형식(Fromat) 에 맞추어 사용
+		TIMESTAMP			소수초까지 정확한 날짜/시간 값을 저장
+	대용량	BLOB(Binary Large Object)
+		CLOB(Character Large Object)
+
+2) 타입
+	Oracle		Java		의미
+문자타입	CHAR(n)		String		고정길이 문자
+	VARCHAR2(n)	String		가변길이 문자
+
+	길이 제한 있음	길이 무제한
+	공간관리 중요	메모리 기반
+
+숫자타입	NUMBER		byte, short, int, long	숫자
+	NUMBER(5,2)	double, float
+	
+날짜타입	DATE		LocalDateTime	날짜 + 시간	
+	TIMESTAMP	LocalDateTime	고정시간
+			java.time 패키지 사용
+
+대용량	BLOB		Byte[]		파일
+	CLOB		String		문서
+--------------------------------------------------------------------------------
+-- 자료형 정리
+1) 문자 
+CHAR : 고정길이 문자
+	CHAR(용량)
+	정해진 크기보다 작은 문자가 저장될 경우 남은 공간을 공백으로 채운다
+	문자의 수가 변하지않는 값에 사용
+	ex) char(5)'a'를 넣으면 a^^^^ 빈자리가 공백으로 채워진다
+		char(5)'abcdef'를 넣으면 5자리 초과하기 때문에 오류 발생
+VARCHAR2 : 가변길이 문자
+	VARCHAR2(용량)
+	문자의 수만큼 공간이 배정되어 남은 공간을 공백으로 채우지 않는다
+	문자의 수가 변화가 있는 값에 사용
+	ex) varchar(5) 'a'를 넣어도 공백없음
+		varchar(5) 'hello'를 넣으면 딱 맞게 저장
+		varchar(5) 'abcdef'를 넣으면 5자리를 초과하기 때문에 오류발생
+		
+2) 숫자
+NUMBER
+	NUMBER(precision)	정수
+	NUMBER(precision, scale) 실수
+	PRECISION : 정밀도(최대 유효숫자 자리수) SCALE : 소수점 기준 자리수
+	precison 이상의 값이 들어올 경우 오류 발생
+	s가 양수면 소수점 이하, 음수면 소수점 이상 자리수
+	s 범위 밖의 값은 반올림되어 적용된다
+	ex) number(3)
+			123 -> 123
+			1234 -> 오류발생
+			12	-> 12
+		
+		NUMBER(5,2) => 정밀도 : 5, SCALE : 2
+			123.45  -> 123.45
+			1234.56 -> 오류발생(전체자리 5자리인데 6자리로 초과 오류 발생)
+			123.456 -> 123.46(소수점 2자리까지 나오도록 3자리에서 반올림)
+			123.2	-> 123.20(소수점 이하 2자리까지 맞춤)
+		NUMBER(5,-2)
+			12345	-> 12300
+			12678	-> 12700
+
+3) 날짜
+	DATE	날짜와 시간, 형식(format)에 맞추어 값을 테이블에 저장하여 사용
+	TIMESTAMP	소수 초까지 정확한 날짜/시간 값을 저장하는 경우 사용
+	
+	ex) DATE
+			'2026-01-01'	-> 2026-01-01 00:00:00
+			sysdate			-> 현재 날짜와 시간 2026-01-26 14:50:37.000
+			timestamp		-> 밀리초까지 표시 2026-01-26 14:51.268
+------------------------------------------------------------------------------------------
+
+10. 연산자
+※ 연산자에서는 피연산자 자리에 어떤 타입의 값이 오는지
+	연산자가 어떻게 동작하는지
+	연산의 결과가 어떤 타입의 값인지 아는 것이 중요하다!!!!!
+
++) 자바에서의 연산자
+	최단산쉬관리삼대
+
+0) 오라클에서의 연산자
+	단항, 산술, 연결, 관계, 논리, SQL연산자
+
+1) 연결연산자(Concatenation)
+	a || b	a와 b 데이터를 하나의 문자열로 연결한다
+	피연산자 : 숫자, 날짜, 문자타입 사용 가능
+	
+2) 산술연산자
+	더하기	+
+	빼기	-
+	곱하기	*
+	나누기	/
+	피연산자 : 숫자, 날짜
+
+3) 관계연산자
+	a > b	: a가 b보다 크다(초과)
+	a < b	: a가 b보다 작다(미만)
+	a >= b	: a가 b보다 크거나 같다(이상)
+	a <= b	: a가 b보다 작거나 같다(이하)
+	a = b	: a와 b가 같다
+	a != b	: a와 b가 같지않다(SQL 표준은 <>이다)
+
+	WHERE절	: 원하는 행을 조회하거나 연산처리할 때(필터링) 사용한다
+
+4) 논리연산자
+	AND	a AND b		a 조건과 b조건이 둘 다 참이라면 참, 아니라면 거짓
+	OR	a OR b		a 조건과 b조건이 둘 중 하나라도 참이라면 참, 둘 다 아니라면 거짓
+	NOT	NOT a		a 조건이 거짓이라면 참, a 조건이 참이라면 거짓
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
