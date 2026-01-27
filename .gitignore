@@ -37,7 +37,9 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
-
+**/.metadata/
+**/resource/
+**/drivers/
 # Windows shortcuts
 *.lnk
 
