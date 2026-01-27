@@ -1,0 +1,85 @@
+-- 3번 : DML 연습
+
+SELECT * FROM TBL_STUDENT;
+
+-- 학생의 평균 점수를 구하고 학점을 수정하기
+/* A : 90점 이상
+ * B : 80점 이상 90점 미만
+ * C : 70점 이상 80점 미만
+ * F : 70점 미만
+ * */
+-- STUDENT_GRADE 컬럼의 값을 수정
+UPDATE TBL_STUDENT
+SET STUDENT_GRADE = 'A'
+WHERE (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 >= 90;
+
+SELECT * FROM TBL_STUDENT;
+
+UPDATE TBL_STUDENT
+SET STUDENT_GRADE = 'B'
+WHERE (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 >= 80
+   AND (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 < 90;
+
+UPDATE TBL_STUDENT
+SET STUDENT_GRADE = 'C'
+WHERE (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 >= 70
+   AND (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 < 80;
+
+UPDATE TBL_STUDENT
+SET STUDENT_GRADE = 'F'
+WHERE (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 < 70;
+
+SELECT * FROM TBL_STUDENT;
+
+-- 학점이 잘 들어갔는지 확인하기 위해 학생번호, 이름, 각 과목 점수, 평균점수, 학점 조회하기
+SELECT STUDENT_NUMBER 학생번호, STUDENT_NAME 학생명, STUDENT_MATH 수학점수, 
+   STUDENT_ENG 영어점수, STUDENT_KOR 국어점수, 
+   (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 평균점수,
+   STUDENT_GRADE 학점
+FROM TBL_STUDENT;
+
+-- 학생의 수학, 영어, 국어 점수 중 한 과목이라도 60점 미만이 아니고
+-- 학점이 B학점 이상인 학생만 학생번호, 이름, 학점 출력하기
+SELECT student_number 학생번호, student_name 이름, student_grade 학점
+FROM tbl_student
+WHERE NOT (STUDENT_MATH < 60 OR STUDENT_ENG < 60 OR STUDENT_KOR < 60)
+   AND STUDENT_GRADE = 'B' OR STUDENT_GRADE = 'A';
+-- 조건을 모두 만족하면서 B인 학생, A인 학생은 모두 다 나오게 됨(A학점이지만 점수가 부족한 학생도 포함)
+-- AND 연산자의 우선순위가 OR연산자의 우선순위보다 높기 때문에 원하는 결과가 나오지 않는다
+
+SELECT student_number 학생번호, student_name 이름, student_grade 학점
+FROM tbl_student
+WHERE STUDENT_MATH >= 60 AND STUDENT_ENG >= 60 AND STUDENT_KOR >= 60
+AND STUDENT_GRADE IN('A', 'B');
+
+
+INSERT INTO TBL_STUDENT
+VALUES(6, '치타', 40, 100, 100, 'B');
+
+SELECT * FROM TBL_STUDENT;
+
+
+-- 3. CASE 표현식
+SELECT STUDENT_NAME 이름, STUDENT_MATH + STUDENT_ENG + STUDENT_KOR AS 총점,
+	(STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 평균
+FROM TBL_STUDENT;
+
+-- 2) 평균으로 등급 만들기(검색 CASE)
+SELECT STUDENT_NAME 이름, (STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 평균,
+	CASE
+		WHEN(STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 >= 90 THEN 'A'
+		WHEN(STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 >= 80 THEN 'B'
+		WHEN(STUDENT_MATH + STUDENT_ENG + STUDENT_KOR) / 3 >= 70 THEN 'C'
+		ELSE 'F'
+	END
+FROM TBL_STUDENT;
+	
+-- 과락  포함 합격/불합격 : 세과목 모두 60점 이상이면 합격, 아니면 불합격
+SELECT STUDENT_NAME 이름, STUDENT_MATH, STUDENT_ENG, STUDENT_KOR,
+	CASE
+		WHEN STUDENT_MATH >= 60 AND STUDENT_ENG >= 60 AND STUDENT_KOR >= 60 THEN '합격'
+		ELSE '불합격'
+	END
+FROM TBL_STUDENT;
+	
+	
