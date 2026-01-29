@@ -64,6 +64,8 @@ WHERE STU_ID = 1;
 INSERT INTO TBL_STU
 VALUES(3, '홍길동', '컴퓨터 공학', 'CS202', '알고리즘', '서울시 강남구 역삼동, 12345');
 
+SELECT * FROM tbl_stu;
+
 -- [1NF] 원자값 제거, 반복 제거
 -- 학생정보테이블 : 학번 PK, 이름, 전공, 주소, 우편번호
 --DROP TABLE TBL_STU_1NF;
