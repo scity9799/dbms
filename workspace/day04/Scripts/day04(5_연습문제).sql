@@ -34,24 +34,17 @@ WHERE "POSITION" IS NULL;
 /*
  * PLAYER 테이블에서 NICKNAME이 NULL인 선수를 '없음'으로 변경하여 조회하기
  */
-UPDATE PLAYER
-SET nickname = '없음'
-WHERE NICKNAME IS null;
+SELECT NVL(NICKNAME,'없음')
+FROM PLAYER;
 
-SELECT nickname
-FROM player
-WHERE NICKNAME ='없음';
 
 /*
  * PLAYER 테이블에서 POSITION이 NULL인 선수를 '미정'으로 변경 후 검색
  */
-UPDATE PLAYER
-SET "POSITION" IS NULL
-WHERE "POSITION" = '미정';
+SELECT NVL("POSITION",'미정')
+FROM PLAYER;
 
-SELECT "POSITION"
-FROM PLAYER
-WHERE "POSITION" = '미정';
+
 /*
  * PLAYER 테이블에서 NATION이 등록되어 있으면 '등록', 아니면 '미등록'으로 검색
  */
